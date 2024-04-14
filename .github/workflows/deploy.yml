@@ -25,12 +25,19 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to prod url
-        # main is the branch name where new code is pushed
-        if: github.ref == 'refs/heads/main'
-        uses: akhileshns/heroku-deploy@v3.12.12
+      - name: Deploy to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
         with:
-          heroku_email: ${{ secrets.HEROKU_EMAIL }}
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: 'nextjs14-demo'
-          # build_dir: 'your-build-directory' # Change this to your build directory if different from the root
+          service-id: ${{ secrets.MY_RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.MY_RENDER_API_KEY }}
+          wait-for-success: true
+
+      # - name: Deploy to prod url
+      #   # main is the branch name where new code is pushed
+      #   if: github.ref == 'refs/heads/main'
+      #   uses: akhileshns/heroku-deploy@v3.12.12
+      #   with:
+      #     heroku_email: ${{ secrets.HEROKU_EMAIL }}
+      #     heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+      #     heroku_app_name: 'nextjs14-demo'
+      # build_dir: 'your-build-directory' # Change this to your build directory if different from the root
